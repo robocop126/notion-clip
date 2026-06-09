@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotionClip - Capture ideas in 0.1s</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0B0F19; }
+    </style>
+</head>
+<body class="text-gray-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
+        <div class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            ⚡ NotionClip
+        </div>
+        <div class="text-sm text-gray-400">Local-first • Blazing Fast</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="max-w-3xl mx-auto px-6 pt-20 pb-16 text-center">
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Notion is too slow for <br class="hidden sm:inline">
+            <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">quick thoughts.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Stop waiting for the loading spinner. Press <kbd class="px-2 py-1 bg-gray-800 rounded text-sm font-mono border border-gray-700 text-gray-300">Alt + Space</kbd>, type your inspiration, and hit Enter. It's synced in the background. 
+        </p>
+
+        <!-- CTA Trigger Button -->
+        <div id="cta-container" class="space-y-4">
+            <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transform hover:-translate-y-0.5 transition active:translate-y-0">
+                Get Lifetime Access for $9
+            </button>
+            <p class="text-xs text-gray-500">One-time payment. No subscriptions. 14-day refund guarantee.</p>
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <section class="max-w-4xl mx-auto px-6 py-12 border-t border-gray-800">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="p-6 bg-gray-900/50 rounded-2xl border border-gray-800/80">
+                <div class="text-indigo-400 text-2xl mb-3">⚡</div>
+                <h3 class="text-lg font-semibold mb-2">0.1s Global Hotkey</h3>
+                <p class="text-sm text-gray-400">Instantly toggle the minimalist input bar over any app. Type and vanish.</p>
+            </div>
+            <div class="p-6 bg-gray-900/50 rounded-2xl border border-gray-800/80">
+                <div class="text-purple-400 text-2xl mb-3">🌐</div>
+                <h3 class="text-lg font-semibold mb-2">Offline-First Architecture</h3>
+                <p class="text-sm text-gray-400">On a plane? Bad WiFi? Write anyway. It caches locally and syncs automatically when online.</p>
+            </div>
+            <div class="p-6 bg-gray-900/50 rounded-2xl border border-gray-800/80">
+                <div class="text-pink-400 text-2xl mb-3">🤖</div>
+                <h3 class="text-lg font-semibold mb-2">Smart Auto-Tagging</h3>
+                <p class="text-sm text-gray-400">Local AI analyzes your clips and maps them to your pre-existing Notion database tags seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-12 text-xs text-gray-600">
+        &copy; 2026 NotionClip. Built by an indie maker for deep thinkers.
+    </footer>
+
+    <!-- The Fake Door Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-gray-900 border border-gray-800 p-8 rounded-2xl max-w-md w-full relative transform transition-all scale-95 opacity-0 duration-300" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-300 text-xl">&times;</button>
+            <h3 class="text-xl font-bold mb-2 text-white">Wow, thanks for the trust! 🚀</h3>
+            <p class="text-sm text-gray-400 mb-6">
+                We're currently polishing the final API integration and limiting the first batch to <strong>100 users</strong> to ensure flawless syncing. 
+            </p>
+            <p class="text-sm text-indigo-400 font-medium mb-4">Leave your email to lock in your $9 Lifetime discount:</p>
+            
+            <!-- Replace with your form service: Formspree, Formspark, or Loop.so -->
+            <form action="#" method="POST" onsubmit="handleSubmit(event)" class="space-y-3">
+                <input type="email" required placeholder="your.email@example.com" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-indigo-500 text-sm">
+                <button type="submit" class="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl text-sm transition">
+                    Reserve My $9 Slot
+                </button>
+            </form>
+            <p id="success-msg" class="text-xs text-green-400 mt-3 hidden">✓ Slot reserved! We will email you in a few days.</p>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        function openModal() {
+            // Analytics: user clicked buy button (high purchase intent)
+            console.log("CTA_Clicked");
+            if (typeof ga !== 'undefined') ga('send', 'event', 'Button', 'Click', 'Buy_Lifetime');
+            
+            const modal = document.getElementById('payment-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('payment-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            // Analytics: user submitted email (high-value retention)
+            console.log("Email_Submitted");
+            document.getElementById('success-msg').classList.remove('hidden');
+            setTimeout(() => { closeModal(); }, 2000);
+        }
+    </script>
+</body>
+</html>
